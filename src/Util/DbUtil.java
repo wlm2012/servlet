@@ -3,11 +3,12 @@ package Util;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
+/**
+ * @author wlm
+ */
 public class DbUtil {
 
     private static String drivename;
@@ -33,17 +34,92 @@ public class DbUtil {
         }
     }
 
-    public static Connection getConn() throws SQLException {
-        if (null == conn || conn.isClosed()) {
-            try {
+    public static Connection getConn() {
+        try {
+            if (null == conn || conn.isClosed()) {
+
                 Class.forName(drivename);
                 conn = DriverManager.getConnection(url, userName, passWord);
-            } catch (Exception e) {
-                e.printStackTrace();
+
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return conn;
     }
 
+    public static Connection getCurrentConn() {
+        Connection conn = tl.get();
+        if (null == conn) {
+            conn = getConn();
+            tl.set(conn);
+        }
+        return conn;
+    }
+
+    public static PreparedStatement getPs(){
+        return  getConn().
+    }
+
+
+    public static void startTransaction() {
+        try {
+            getCurrentConn().setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void rollback() {
+        try {
+            getCurrentConn().rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void commit() {
+        Connection conn = getCurrentConn();
+        try {
+            conn.commit();
+            tl.remove();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void close(ResultSet rs, Statement st) throws SQLException {
+        if (st != null) {
+            st.close();
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+    }
+
+
+    public static void close(ResultSet rs, Statement st, Connection conn) throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
+        if (st != null) {
+            st.close();
+        }
+        if (rs != null) {
+            rs.close();
+        }
+
+    }
+
+
+    // 测试数据库是否连通
+    public static void main(String[] args) {
+        System.err.println(getConn());
+    }
 
 }
