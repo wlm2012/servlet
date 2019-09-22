@@ -59,9 +59,7 @@ public class DbUtil {
         return conn;
     }
 
-    public static PreparedStatement getPs(){
-        return  getConn().
-    }
+
 
 
     public static void startTransaction() {
