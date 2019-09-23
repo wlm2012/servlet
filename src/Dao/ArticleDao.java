@@ -81,7 +81,28 @@ public class ArticleDao {
         return articleList;
     }
 
-    public Article FindArticleByName(String )
+    public Article FindArticleById(String id) {
+        String sql = "select * from t_article where id=?";
+        Article article = new Article();
+        try {
+            PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
+
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                article.setId(resultSet.getString("id"));
+                article.setTitle(resultSet.getString("title"));
+                article.setArticle(resultSet.getString("article"));
+                article.setUser_id(resultSet.getString("user_id"));
+                article.setUpdate_time(resultSet.getTimestamp("update_time"));
+            }
+            DbUtil.close(resultSet, ps);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return article;
+    }
+
+
 
 
 }
