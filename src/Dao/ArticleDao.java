@@ -86,7 +86,7 @@ public class ArticleDao {
         Article article = new Article();
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
-
+            ps.setString(1,id);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 article.setId(resultSet.getString("id"));
