@@ -1,5 +1,6 @@
 package Entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Article {
@@ -8,7 +9,7 @@ public class Article {
     private String user_id;
     private String article;
     private String title;
-    private Date update_time;
+    private Timestamp update_time;
 
     public String getId() {
         return id;
@@ -42,11 +43,11 @@ public class Article {
         this.title = title;
     }
 
-    public Date getUpdate_time() {
+    public Timestamp getUpdate_time() {
         return update_time;
     }
 
-    public void setUpdate_time(Date update_time) {
+    public void setUpdate_time(Timestamp update_time) {
         this.update_time = update_time;
     }
 
