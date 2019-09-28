@@ -36,8 +36,8 @@ public class ListArticle extends HttpServlet {
         if (StringUtil.isEmpty(Page) || StringUtil.isEmpty(PageNum)) {
             //do nothing
         } else {
-            page=Integer.parseInt(Page);
-            pagenum=Integer.valueOf(pagenum);
+            page = Integer.parseInt(Page);
+            pagenum = Integer.valueOf(pagenum);
         }
 
         List<Article> articleList = articleDao.FindArticleByPage(page, pagenum);
