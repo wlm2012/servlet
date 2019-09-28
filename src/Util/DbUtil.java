@@ -59,6 +59,15 @@ public class DbUtil {
         return conn;
     }
 
+    public  static void close(){
+        try {
+            getCurrentConn().close();
+            tl.remove();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
