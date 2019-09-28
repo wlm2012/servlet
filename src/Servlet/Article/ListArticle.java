@@ -3,6 +3,7 @@ package Servlet.Article;
 
 import Dao.ArticleDao;
 import Entity.Article;
+import Util.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,15 +23,25 @@ public class ListArticle extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/ListArticle.jsp").forward(req, resp);
+        doPost(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        ArticleDao articleDao=new ArticleDao();
-        Integer Page=Integer.parseInt(req.getParameter("Page"));
-        Integer PageNum=Integer.valueOf(req.getParameter("PageNum"));
-        List<Article> articleList=articleDao.FindArticleByPage(Page,PageNum);
-        req.setAttribute("articleList",articleList);
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ArticleDao articleDao = new ArticleDao();
+        String Page = req.getParameter("Page");
+        String PageNum = req.getParameter("PageNum");
+        Integer page = 1;
+        Integer pagenum = 15;
+        if (StringUtil.isEmpty(Page) || StringUtil.isEmpty(PageNum)) {
+            //do nothing
+        } else {
+            page=Integer.parseInt(Page);
+            pagenum=Integer.valueOf(pagenum);
+        }
+
+        List<Article> articleList = articleDao.FindArticleByPage(page, pagenum);
+        req.setAttribute("articleList", articleList);
+        req.getRequestDispatcher("WEB-INF/article/listarticle.jsp").forward(req, resp);
     }
 }

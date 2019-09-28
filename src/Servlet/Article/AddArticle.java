@@ -24,7 +24,7 @@ public class AddArticle extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String id = req.getParameter("id");
         String user_id = req.getParameter("user_id");
         String article = req.getParameter("article");
@@ -39,5 +39,6 @@ public class AddArticle extends HttpServlet {
         ArticleDao articleDao = new ArticleDao();
         articleDao.AddArticle(articles);
         DbUtil.close();
+        resp.sendRedirect("/ListArticle");
     }
 }
