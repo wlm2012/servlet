@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author lenovo2
+ */
 public class ArticleDao {
     public void AddArticle(Article article) {
         String sql = "INSERT INTO t_article (id, user_id, article, update_time, title) VALUES(?,?,?,?,?);";
@@ -86,7 +89,7 @@ public class ArticleDao {
         Article article = new Article();
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
-            ps.setString(1,id);
+            ps.setString(1, id);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 article.setId(resultSet.getString("id"));
@@ -101,8 +104,6 @@ public class ArticleDao {
         }
         return article;
     }
-
-
 
 
 }
