@@ -42,6 +42,6 @@ public class ListArticle extends HttpServlet {
 
         List<Article> articleList = articleDao.FindArticleByPage(page, pagenum);
         req.setAttribute("articleList", articleList);
-        req.getRequestDispatcher("WEB-INF/article/listarticle.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/article/ListArticle.jsp").forward(req, resp);
     }
 }
