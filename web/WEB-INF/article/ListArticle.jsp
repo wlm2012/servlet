@@ -18,19 +18,19 @@
             <td>操作</td>
             </thead>
             <tbody>
-            <c:forEach items="${studentList}" var="student">
+            <c:forEach items="${articleList}" var="article">
                 <tr>
-                    <td>${student.xuehao}</td>
-                    <td>${student.xingming}</td>
+                    <td>${article.xuehao}</td>
+                    <td>${article.xingming}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${student.xingbie == 0}">女</c:when>
-                            <c:when test="${student.xingbie == 1}">男</c:when>
+                            <c:when test="${article.xingbie == 0}">女</c:when>
+                            <c:when test="${article.xingbie == 1}">男</c:when>
                         </c:choose>
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="/updatestudent?xuehao=${student.xuehao}">更 新</a>
-                        <a class="btn btn-danger btn-sm" href="/deletestudent?xuehao=${student.xuehao}">删 除</a>
+                        <a class="btn btn-info btn-sm" href="/updatestudent?xuehao=${article.xuehao}">更 新</a>
+                        <a class="btn btn-danger btn-sm" href="/deletestudent?xuehao=${article.xuehao}">删 除</a>
                     </td>
                 </tr>
             </c:forEach>
