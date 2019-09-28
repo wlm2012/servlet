@@ -31,6 +31,6 @@ public class ListArticle extends HttpServlet {
         Integer Page=Integer.parseInt(req.getParameter("Page"));
         Integer PageNum=Integer.valueOf(req.getParameter("PageNum"));
         List<Article> articleList=articleDao.FindArticleByPage(Page,PageNum);
-
+        req.setAttribute("articleList",articleList);
     }
 }
