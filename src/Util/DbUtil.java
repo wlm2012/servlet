@@ -21,7 +21,7 @@ public class DbUtil {
     static {
         Properties properties = new Properties();
         try {
-            InputStream in = new BufferedInputStream(new FileInputStream("resources/mysql.properties"));
+            InputStream in = new BufferedInputStream(new FileInputStream("/resources/mysql.properties"));
             properties.load(in);
 
             drivename = properties.getProperty("drivename");

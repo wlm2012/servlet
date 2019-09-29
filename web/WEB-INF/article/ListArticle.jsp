@@ -20,18 +20,11 @@
             <tbody>
             <c:forEach items="${articleList}" var="article">
                 <tr>
-                    <td>${article.xuehao}</td>
-                    <td>${article.xingming}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${article.xingbie == 0}">女</c:when>
-                            <c:when test="${article.xingbie == 1}">男</c:when>
-                        </c:choose>
-                    </td>
-                    <td>
-                        <a class="btn btn-info btn-sm" href="/updatestudent?xuehao=${article.xuehao}">更 新</a>
-                        <a class="btn btn-danger btn-sm" href="/deletestudent?xuehao=${article.xuehao}">删 除</a>
-                    </td>
+                    <td>${article.id}</td>
+                    <td>${article.user_id}</td>
+                    <td>${article.article}</td>
+                    <td>${article.title}</td>
+                    <td>${article.update_time}</td>
                 </tr>
             </c:forEach>
             </tbody>
