@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @WebServlet("/AddArticle")
 public class AddArticle extends HttpServlet {
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doPost(req, resp);
     }
 
