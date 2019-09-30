@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 /**
  * @author wlm
@@ -21,7 +22,12 @@ public class DbUtil {
     static {
         Properties properties = new Properties();
         try {
-            InputStream in = new BufferedInputStream(new FileInputStream("/resources/mysql.properties"));
+           //获取文件流
+            InputStream in=DbUtil.class.getClassLoader().getResourceAsStream("mysql.properties");
+/*            //获取文件的位置
+            String filePath=DbUtil.class.getClassLoader().getResource("mysql.properties").getFile();
+            System.out.println(filePath);*/
+
             properties.load(in);
 
             drivename = properties.getProperty("drivename");

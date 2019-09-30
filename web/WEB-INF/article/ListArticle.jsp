@@ -8,7 +8,7 @@
 </head>
 <body style="padding-top: 20px;">
 <div class="container">
-    <div class="col-md-8 col-md-offset-2">
+    <div style="text-align: center;" class="col-md-8 col-md-offset-2">
         <h1>学生列表</h1><br>
         <table class="table">
             <thead>

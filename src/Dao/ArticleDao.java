@@ -65,7 +65,8 @@ public class ArticleDao {
         List<Article> articleList = new ArrayList<>();
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
-            ps.setInt(PageNum * (Page - 1), PageNum);
+            ps.setInt(1,PageNum * (Page - 1));
+            ps.setInt(2,PageNum);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Article article = new Article();
