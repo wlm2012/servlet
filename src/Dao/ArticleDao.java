@@ -61,7 +61,7 @@ public class ArticleDao {
     }
 
     public List<Article> FindArticleByPage(Integer Page, Integer PageNum) {
-        String sql = "select * from t_article order by id limit ?,?";
+        String sql = "select * from t_article order by create_time desc limit ?,?";
         List<Article> articleList = new ArrayList<>();
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
