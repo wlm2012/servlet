@@ -46,7 +46,7 @@ public class ArticleDao {
     }
 
     public void UpdateArticle(Article article) {
-        String sql = "UPDATE t_article SET user_id=?', article=?, title=?', update_time=? WHERE id=?;";
+        String sql = "UPDATE t_article SET user_id=?, article=?, title=?, update_time=? WHERE id=?;";
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
             ps.setString(5, article.getId());
