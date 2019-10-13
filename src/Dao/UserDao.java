@@ -19,7 +19,7 @@ public class UserDao {
 
         try {
             PreparedStatement ps = DbUtil.getCurrentConn().prepareStatement(sql);
-            ps.setString(1, user.getId());
+            ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());
             ResultSet resultSet = ps.executeQuery();
 

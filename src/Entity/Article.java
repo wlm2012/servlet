@@ -10,6 +10,15 @@ public class Article {
     private String article;
     private String title;
     private Timestamp update_time;
+    private Integer visited;
+
+    public Integer getVisited() {
+        return visited;
+    }
+
+    public void setVisited(Integer visited) {
+        this.visited = visited;
+    }
 
     public String getId() {
         return id;

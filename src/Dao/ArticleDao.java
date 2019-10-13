@@ -98,6 +98,7 @@ public class ArticleDao {
                 article.setArticle(resultSet.getString("article"));
                 article.setUser_id(resultSet.getString("user_id"));
                 article.setUpdate_time(resultSet.getTimestamp("update_time"));
+                article.setVisited(resultSet.getInt("visited"));
             }
             DbUtil.close(resultSet, ps);
         } catch (SQLException e) {
@@ -105,6 +106,8 @@ public class ArticleDao {
         }
         return article;
     }
+
+    public void AddVisited(){}
 
 
 }

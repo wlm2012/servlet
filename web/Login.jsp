@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="LoginServlet" method="post"><!-- action写要请求Servlet的名 -->
-    用户名：<input type="text" id="name" name="name"><br><br>
+    用户名：<input type="text" id="name" name="name">${msg}<br><br>
     密码：<input type="password" id="password" name="password"><br><br>
     <input type="submit" value="登录">
     <input type="reset" value="重置">

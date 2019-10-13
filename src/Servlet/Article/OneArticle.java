@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author lenovo2
  */
-@WebServlet("/Article")
+@WebServlet("/OneArticle")
 public class OneArticle extends HttpServlet {
 
     @Override

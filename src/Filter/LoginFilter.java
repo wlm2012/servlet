@@ -1,5 +1,7 @@
 package Filter;
 
+import Util.StringUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
@@ -32,22 +34,24 @@ public class LoginFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)servletRequest;
-        HttpServletResponse rep = (HttpServletResponse)servletResponse;
+        HttpServletResponse resp = (HttpServletResponse)servletResponse;
 
         //获取session对象
         HttpSession session = req.getSession();
 
         //从session对象中获取用户信息
         String name = (String)session.getAttribute("name");
-        System.out.println("name: " + name);
+//        System.out.println("name: " + name);
 
         //如果没有登陆,此时session将取不到值,重定向到登录页面
-        if (name == null || name.equals("")) {
-            rep.sendRedirect("WEB-INF/Login.jsp");
+        if (StringUtil.isEmpty(name)) {
+//            req.getRequestDispatcher("WEB-INF/Login.jsp").forward(req,resp);
+//            System.out.println(req.getContextPath());
+              resp.sendRedirect("Login.jsp");
         } else {
             //如果已经登陆，继续此次请求
             //可以在这里做用户名和密码的验证
-            filterChain.doFilter(req, rep);
+            filterChain.doFilter(req, resp);
         }
     }
 
