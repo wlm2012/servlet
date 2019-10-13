@@ -1,37 +1,149 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <div style="text-align: left;">
-        <title>品葱</title>
-    </div>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${article.title} | MyBlog</title>
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 </head>
-<body style="padding-top: 20px;">
-<div class="container">
-    <div style="text-align: center;" class="col-md-8 col-md-offset-2">
-        <h1>问题列表</h1><br>
-        <table class="table">
-            <tbody>
-            <c:forEach items="${articleList}" var="article">
-                <div  class="list-group-item">
-                    <h4><a href="/Blog/ArticleServlet?id=${article.id}">${article.title}</a></h4>
-                    <br/>
-                    <span>${article.time}&nbsp;&nbsp;|</span>
-                    <a href="/Blog/SortServlet?get=${article.sort}">${article.sort}</a>&nbsp;&nbsp;|
-                    <span>阅读次数: ${article.visit}</span>
-                    <br/><br/>
-                    <span>${article.content}</span>
-                    <br/><br/><br/>
-                    <a href="/Blog/ArticleServlet?id=${article.id}">阅读全文</a>
-                    <br/>
-                </div>
-            </c:forEach>
-            </tbody>
-        </table>
-        <button class="btn btn-success" onclick="window.location.href='/add'">添加学生</button>
+<body>
+<div class="head_line"></div>
+<div class="container" id="main">
+
+    <div class="head">
+        <div id="title">
+            <h2>
+                <a href="/Blog/index.jsp">MyBlog</a>
+            </h2>
+        </div>
     </div>
+
+    <div id="article">
+
+        <div id="a_head ">
+            <h3>${article.title}</h3>
+            <br />
+            <div class="r_div">
+                <h5>
+                    <span class="glyphicon glyphicon-eye-open">&nbsp;${article.visit}&nbsp;</span>
+                    <span class="glyphicon glyphicon-heart" id="love">&nbsp;${article.star}&nbsp;</span>
+                    <span	class="glyphicon glyphicon-comment">&nbsp;${article.comment}&nbsp; </span>
+                </h5>
+            </div>
+            <div id="tag">
+                <c:forEach var="t" items="${article_tags}">
+                    <a href="/Blog/TagsServlet?get=${t.tag}">${t.tag}&nbsp;</a>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+
+
+
+    <div>
+        <div class="f_div">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+
+
+            <c:choose>
+                <c:when test="${article_pre!=null}">
+                    <a href="/Blog/ArticleServlet?id=${article_pre.id}">&nbsp;上一篇:${article_pre.title}</a>
+                </c:when>
+                <c:otherwise>
+                    &nbsp;没有更早的文章了
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+        <div class="r_div">
+
+            <c:choose>
+                <c:when test="${article_next!=null}">
+                    <a href="/Blog/ArticleServlet?id=${article_next.id}">下一篇:&nbsp;${article_next.title}</a>
+                </c:when>
+                <c:otherwise>
+                    &nbsp;没有更多的文章了
+                </c:otherwise>
+            </c:choose>
+
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </div>
+
+        <div>
+            <span class="btn btn-default" style="color:#d9534f;"  onclick="love_article(${article.id})" >点赞</span>
+        </div>
+        <br/>
+    </div>
+
+    <div class="line"></div>
+
+    <!-- 评论 -->
+    <div class="comment">
+
+        <div class="r_div">
+            <a href="#comment"><span class="glyphicon glyphicon-pencil">&nbsp;写评论....</span></a>
+        </div>
+
+        <!-- 加载文章评论 -->
+        <c:if test="${comment!=null}">
+            <c:forEach var="comm" varStatus="status" items="${comment}">
+
+                <div class="row" >
+                    <div class="f_div">
+                        <img src="/Blog/img/comment.jpg" height="50" width="50"  class="img-circle"/>
+                        &nbsp;&nbsp;
+                        <span style="color: #428bca"> ${comm.nickname}</span>
+                        <span>&nbsp;&nbsp;${comm.time}</span>
+                    </div>
+                    <div  id="c_content" class="c_left">
+                        <pre>${comm.content }</pre>
+                    </div>
+                    <div class="r_div">
+                        <a><span class="glyphicon glyphicon-thumbs-up"  onclick="star(this,${comm.id})">${comm.star}</span></a>
+                        &nbsp;
+                        <a><span class="glyphicon glyphicon-thumbs-down" onclick="diss(this,${comm.id})">${comm.diss}</span></a>
+                        &nbsp;
+                        <!-- admin here -->
+                        <c:if test="${sessionScope.user!=null}">
+                            <span class="btn btn-default" style="color:red;" onclick="deletecm(this,${comm.id})">删除</span>
+                            &nbsp;
+                        </c:if>
+                    </div>
+                    <div class="line"></div>
+                </div>
+
+            </c:forEach>
+
+        </c:if>
+    </div>
+    <!-- 这里可以扩展子评论 -->
+
+
+    <!-- 写评论 -->
+    <div id="comment">
+
+        <form action="/Blog/NewCommentServlet?id=${article.id}" method="post">
+            <input  style="width:30%" class="form-control" type="text" name="w_nickname" value="热心网友"  >
+            <br/>
+            <textarea style="resize:none; width:100%; height:180px;" name="w_content"></textarea>
+            <br/>
+            <br/>
+            <input  class="btn btn-default"  type="submit"   value="评论" onclick="onclick"/>
+            <br/>
+        </form>
+    </div>
+    <!--  -->
+    <div class="line"></div>
+
 </div>
+<div id="footer">
+    <a href="/Blog/index.jsp">MyBlog首页&nbsp;&nbsp;</a>|
+    <a href="#">&nbsp;&nbsp;返回顶部</a>
+</div>
+<!-- footer -->
 </body>
 </html>

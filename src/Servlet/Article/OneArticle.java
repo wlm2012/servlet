@@ -31,9 +31,8 @@ public class OneArticle extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArticleDao articleDao = new ArticleDao();
         String id = req.getParameter("id");
-
-
         Article article = articleDao.FindArticleById(id);
+        articleDao.AddVisited(id);
         DbUtil.close();
         req.setAttribute("article", article);
         req.getRequestDispatcher("WEB-INF/article/OneArticle.jsp").forward(req, resp);

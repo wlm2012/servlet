@@ -75,6 +75,7 @@ public class ArticleDao {
                 article.setArticle(resultSet.getString("article"));
                 article.setUser_id(resultSet.getString("user_id"));
                 article.setUpdate_time(resultSet.getTimestamp("update_time"));
+                article.setVisited(resultSet.getInt("visited"));
                 articleList.add(article);
             }
             DbUtil.close(resultSet, ps);
@@ -107,7 +108,18 @@ public class ArticleDao {
         return article;
     }
 
-    public void AddVisited(){}
+    public void AddVisited(String id){
+        String sql = "update t_article set visited=visited+1 where id=?;";
+        PreparedStatement ps = null;
+        try {
+            ps = DbUtil.getCurrentConn().prepareStatement(sql);
+            ps.setString(1, id);
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }
