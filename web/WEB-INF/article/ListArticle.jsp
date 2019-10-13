@@ -19,11 +19,10 @@
                     <h4><a href="/OneArticle?id=${article.id}">${article.title}</a></h4>
                     <br/>
                     <span>阅读次数: ${article.visited}</span>
-                    <br/><br/>
-                    <span>${article.article}</span>
-                    <br/><br/><br/>
-                    <a href="/OneArticle?id=${article.id}">阅读全文</a>
                     <br/>
+                    <span>${article.article}</span>
+                    <br/>
+                    <a href="/OneArticle?id=${article.id}">阅读全文</a>
                 </div>
             </c:forEach>
             </tbody>

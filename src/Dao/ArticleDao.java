@@ -72,7 +72,7 @@ public class ArticleDao {
                 Article article = new Article();
                 article.setId(resultSet.getString("id"));
                 article.setTitle(resultSet.getString("title"));
-                article.setArticle(resultSet.getString("article"));
+                article.setArticle(resultSet.getString("article").substring(0,99));
                 article.setUser_id(resultSet.getString("user_id"));
                 article.setUpdate_time(resultSet.getTimestamp("update_time"));
                 article.setVisited(resultSet.getInt("visited"));
@@ -118,8 +118,5 @@ public class ArticleDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }

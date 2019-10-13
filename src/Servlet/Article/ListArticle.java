@@ -33,7 +33,7 @@ public class ListArticle extends HttpServlet {
         String Page = req.getParameter("Page");
         String PageNum = req.getParameter("PageNum");
         Integer page = 1;
-        Integer pagenum = 15;
+        Integer pagenum = 5;
         if (StringUtil.isEmpty(Page) || StringUtil.isEmpty(PageNum)) {
             //do nothing
         } else {
