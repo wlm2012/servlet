@@ -11,10 +11,8 @@
 <body style="padding-top: 20px;">
 <div class="container">
     <div style="text-align: center;" class="col-md-8 col-md-offset-2">
-        <h1>文章列表</h1><br>
+        <h1>${article.title}</h1><br>
         <table class="table">
-            <tbody>
-            <c:forEach items="${articleList}" var="article">
                 <div  class="list-group-item">
                     <h4><a href="/OneArticle?id=${article.id}">${article.title}</a></h4>
                     <br/>
@@ -24,8 +22,6 @@
                     <br/>
                     <a href="/OneArticle?id=${article.id}">阅读全文</a>
                 </div>
-            </c:forEach>
-            </tbody>
         </table>
     </div>
 </div>
