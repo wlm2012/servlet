@@ -1,11 +1,11 @@
 package Util;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+
 import java.io.InputStream;
 import java.sql.*;
+import java.util.List;
 import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author wlm
@@ -16,14 +16,15 @@ public class DbUtil {
     private static String url;
     private static String userName;
     private static String passWord;
-    private static Connection conn = null;
+    private static Integer jdbcPoolInitSize;
     private static ThreadLocal<Connection> tl = new ThreadLocal<>();
+    private static List<Connection> listConnections = new CopyOnWriteArrayList<>();
 
     static {
         Properties properties = new Properties();
         try {
-           //获取文件流
-            InputStream in=DbUtil.class.getClassLoader().getResourceAsStream("mysql.properties");
+            //获取文件流
+            InputStream in = DbUtil.class.getClassLoader().getResourceAsStream("mysql.properties");
 /*            //获取文件的位置
             String filePath=DbUtil.class.getClassLoader().getResource("mysql.properties").getFile();
             System.out.println(filePath);*/
@@ -34,20 +35,25 @@ public class DbUtil {
             url = properties.getProperty("url");
             userName = properties.getProperty("userName");
             passWord = properties.getProperty("passWord");
+            jdbcPoolInitSize = Integer.parseInt(properties.getProperty("jdbcPoolInitSize"));
             in.close();
+
+            for (int i = 0; i < jdbcPoolInitSize; i++) {
+                listConnections.add(getConn());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static Connection getConn() {
+        Connection conn = null;
         try {
-            if (null == conn || conn.isClosed()) {
 
-                Class.forName(drivename);
-                conn = DriverManager.getConnection(url, userName, passWord);
+            Class.forName(drivename);
+            conn = DriverManager.getConnection(url, userName, passWord);
 
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -57,15 +63,21 @@ public class DbUtil {
     }
 
     public static Connection getCurrentConn() {
-        Connection conn = tl.get();
-        if (null == conn) {
-            conn = getConn();
-            tl.set(conn);
+        Connection con = null;
+        if (listConnections.size() > 0) {
+            con = listConnections.get(0);
+            listConnections.remove(0);
+        } else {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        return conn;
+        return con;
     }
 
-    public  static void close(){
+    public static void close() {
         try {
             getCurrentConn().close();
             tl.remove();
@@ -73,8 +85,6 @@ public class DbUtil {
             e.printStackTrace();
         }
     }
-
-
 
 
     public static void startTransaction() {
@@ -118,13 +128,23 @@ public class DbUtil {
 
     public static void close(ResultSet rs, Statement st, Connection conn) throws SQLException {
         if (conn != null) {
-            conn.close();
+            listConnections.add(conn);
         }
         if (st != null) {
             st.close();
         }
         if (rs != null) {
             rs.close();
+        }
+
+    }
+
+    public static void close(Statement st, Connection conn) throws SQLException {
+        if (conn != null) {
+            listConnections.add(conn);
+        }
+        if (st != null) {
+            st.close();
         }
 
     }
