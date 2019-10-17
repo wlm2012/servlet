@@ -17,9 +17,11 @@ public class DbUtil {
     private static String userName;
     private static String passWord;
     private static Integer jdbcPoolInitSize;
-    private static ThreadLocal<Connection> tl = new ThreadLocal<>();
+    private static ThreadLocal<Connection> tlc = new ThreadLocal<>();
+    private static ThreadLocal<PreparedStatement> tlp = new ThreadLocal<>();
     private static List<Connection> listConnections = new CopyOnWriteArrayList<>();
 
+    //创建连接池
     static {
         Properties properties = new Properties();
         try {
@@ -47,7 +49,8 @@ public class DbUtil {
         }
     }
 
-    public static Connection getConn() {
+    //建立数据库连接，仅供创建数据库连接池使用
+    private static Connection getConn() {
         Connection conn = null;
         try {
 
@@ -62,6 +65,8 @@ public class DbUtil {
         return conn;
     }
 
+
+    //供Dao使用
     public static Connection getCurrentConn() {
         Connection con = null;
         if (listConnections.size() > 0) {
@@ -69,7 +74,7 @@ public class DbUtil {
             listConnections.remove(0);
         } else {
             try {
-                Thread.sleep(500);
+                Thread.sleep(50000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -77,38 +82,37 @@ public class DbUtil {
         return con;
     }
 
-    public static void close() {
+/*    public static void close() {
         try {
             getCurrentConn().close();
             tl.remove();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
-    public static void startTransaction() {
+    public static void startTransaction(Connection con) {
         try {
-            getCurrentConn().setAutoCommit(false);
+            con.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void rollback() {
+    public static void rollback(Connection con) {
         try {
-            getCurrentConn().rollback();
+            con.rollback();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void commit() {
-        Connection conn = getCurrentConn();
+    public static void commit(Connection con) {
+
         try {
-            conn.commit();
-            tl.remove();
-            conn.close();
+            con.commit();
+            listConnections.add(con);
         } catch (SQLException e) {
             e.printStackTrace();
         }

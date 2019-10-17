@@ -20,7 +20,7 @@ public class ArticleDao {
     public void AddArticle(Article article) {
         String sql = "INSERT INTO t_article (id, user_id, article, update_time, title) VALUES(?,?,?,?,?);";
         try {
-            Connection conn=DbUtil.getCurrentConn();
+            Connection conn = DbUtil.getCurrentConn();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, article.getId());
             ps.setString(2, article.getUser_id());
@@ -28,7 +28,7 @@ public class ArticleDao {
             ps.setString(4, article.getTitle());
             ps.setTimestamp(5, article.getUpdate_time());
             ps.executeUpdate();
-            DbUtil.close(ps,conn);
+            DbUtil.close(ps, conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,11 +38,11 @@ public class ArticleDao {
         String sql = "DELETE FROM t_article WHERE id=?;";
         PreparedStatement ps = null;
         try {
-            Connection conn=DbUtil.getCurrentConn();
+            Connection conn = DbUtil.getCurrentConn();
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             ps.executeUpdate();
-            DbUtil.close(ps,conn);
+            DbUtil.close(ps, conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,14 +51,14 @@ public class ArticleDao {
     public void UpdateArticle(Article article) {
         String sql = "UPDATE t_article SET user_id=?, article=?, title=?, update_time=? WHERE id=?;";
         try {
-            Connection conn=DbUtil.getCurrentConn();
+            Connection conn = DbUtil.getCurrentConn();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(5, article.getId());
             ps.setString(1, article.getUser_id());
             ps.setString(2, article.getArticle());
             ps.setString(3, article.getTitle());
             ps.setTimestamp(4, article.getUpdate_time());
-            DbUtil.close(ps,conn);
+            DbUtil.close(ps, conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class ArticleDao {
                 article.setUpdate_time(resultSet.getTimestamp("update_time"));
                 article.setVisited(resultSet.getInt("visited"));
             }
-            DbUtil.close(resultSet, ps,conn);
+            DbUtil.close(resultSet, ps, conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,7 +121,7 @@ public class ArticleDao {
             Connection conn = DbUtil.getCurrentConn();
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
-            DbUtil.close( ps,conn);
+            DbUtil.close(ps, conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
