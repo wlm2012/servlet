@@ -17,8 +17,8 @@ public class DbUtil {
     private static String userName;
     private static String passWord;
     private static Integer jdbcPoolInitSize;
-    private static ThreadLocal<Connection> tlc = new ThreadLocal<>();
-    private static ThreadLocal<PreparedStatement> tlp = new ThreadLocal<>();
+/*    private static ThreadLocal<Connection> tlc = new ThreadLocal<>();
+    private static ThreadLocal<PreparedStatement> tlp = new ThreadLocal<>();*/
     private static List<Connection> listConnections = new CopyOnWriteArrayList<>();
 
     //创建连接池
@@ -75,6 +75,7 @@ public class DbUtil {
         } else {
             try {
                 Thread.sleep(50000);
+                return getCurrentConn();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
