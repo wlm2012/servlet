@@ -13,7 +13,7 @@ CREATE TABLE `t_article` (
   KEY `t_article_create_time_IDX` (`create_time`) USING BTREE,
   KEY `t_article_visited_IDX` (`visited`) USING BTREE,
   FULLTEXT KEY `t_article_article_IDX` (`article`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB;
 
 
 
@@ -25,4 +25,4 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_user_un` (`name`),
   KEY `t_user_status_IDX` (`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB;
