@@ -50,14 +50,12 @@ public class DbUtil {
         }
     }
 
-    //建立数据库连接，仅供创建数据库连接池使用
+    //建立数据库连接，仅供创建数据库连接池时使用
     private static Connection getConn() {
         Connection conn = null;
         try {
-
             Class.forName(drivename);
             conn = DriverManager.getConnection(url, userName, passWord);
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -67,7 +65,7 @@ public class DbUtil {
     }
 
 
-    //供Dao使用
+    //供Dao层使用
     public static Connection getCurrentConn() {
         Connection conn = tlc.get();
         if (conn == null) {
