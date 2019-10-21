@@ -13,5 +13,6 @@
     <input type="submit" value="登录">
     <input type="reset" value="重置">
 </form>
+<a href="/AddUser" >注册新用户</a>
 </body>
 </html>
