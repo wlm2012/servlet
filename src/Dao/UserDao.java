@@ -29,7 +29,7 @@ public class UserDao {
                 user.setId(resultSet.getString("id"));
                 return user;
             }
-            DbUtil.close(resultSet, ps, conn);
+            DbUtil.close(resultSet, ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
