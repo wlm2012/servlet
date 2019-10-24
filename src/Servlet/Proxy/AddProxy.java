@@ -22,6 +22,6 @@ public class AddProxy extends HttpServlet {
     }
 
     public void AddProxy1(){
-        HttpUtil.proxyNoAuth("127.0.0.1:1081","http://www.baidu.com");
+        HttpUtil.proxyNoAuth("http://www.baidu.com");
     }
 }
