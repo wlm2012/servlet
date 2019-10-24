@@ -22,6 +22,8 @@ public class AddProxy extends HttpServlet {
     }
 
     public void AddProxy1(){
-        HttpUtil.proxyNoAuth("http://www.baidu.com");
+//        HttpUtil.proxyNoAuth("https://www.ssrtool.com/tool/free_ssr");
+//        HttpUtil.proxyNoAuth("https://free-ss.site/");
+        String result=HttpUtil.proxyNoAuth("http://ss.pythonic.life/");
     }
 }

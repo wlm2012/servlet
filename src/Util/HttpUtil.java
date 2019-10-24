@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
 
 
@@ -17,23 +18,23 @@ import java.io.IOException;
  */
 public class HttpUtil {
 
-    public static void proxyNoAuth(String webUrl) {
+    public static String proxyNoAuth(String webUrl) {
 
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(webUrl);
         request.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
-        request.setConfig(RequestConfig.custom().setProxy(new HttpHost("127.0.0.1",1081,"http")).build());
+        request.setConfig(RequestConfig.custom().setProxy(new HttpHost("127.0.0.1", 1081, "http")).build());
+        String result = "";
         try {
             System.out.println(EntityUtils.toString(client.execute(request).getEntity()));
-            CloseableHttpResponse response=client.execute(request);
-            String entity=EntityUtils.toString(response.getEntity());
+            CloseableHttpResponse response = client.execute(request);
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                String result = response.getEntity().toString();
-                System.out.println(result);
+                result = EntityUtils.toString(response.getEntity());
             }
             client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return result;
     }
 }
