@@ -14,8 +14,8 @@
 <body>
 <form>
     用户名：<input type="text" name="name"><br>
-    密 码：<input type="password" name="password"><br>
-    性 别：
+    密  码：<input type="password" name="password"><br>
+    性  别：
     <input type="radio" name="sex" value="0">男
     <input type="radio" name="sex" value="1">女
     <input type="radio" name="sex" value="2">保密<br>

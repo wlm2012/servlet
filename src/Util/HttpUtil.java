@@ -43,7 +43,7 @@ public class HttpUtil {
         return result;
     }
 
-    public static String postToTest(String svrName) {
+    public static String postToTest(String svrName,Integer num) {
 
         String url = "";
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -72,6 +72,7 @@ public class HttpUtil {
 //            System.out.println(result);
             Gson gson = new Gson();
             url = gson.fromJson(result, svraddr.class).getCOM_HTTP().getURL();
+            url =url.substring(0,17)+num+url.substring(18)+"/"+svrName;
         } catch (IOException e) {
             e.printStackTrace();
         }

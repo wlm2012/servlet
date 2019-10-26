@@ -8,12 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/AddProxy")
+@WebServlet("/v6")
 public class AddProxy extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        doPost(req, resp);
+        try {
+            resp.sendRedirect("svraddr.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -25,7 +29,7 @@ public class AddProxy extends HttpServlet {
 //        HttpUtil.proxyNoAuth("https://www.ssrtool.com/tool/free_ssr");
 //        HttpUtil.proxyNoAuth("https://free-ss.site/");
 //        String result=HttpUtil.proxyNoAuth("http://ss.pythonic.life/");
-        String result = HttpUtil.postToTest("FuserQuyBrchBrchNOLis");
+        String result = HttpUtil.postToTest("FuserQuyBrchBrchNOLis",5);
         System.out.println(result);
     }
 }
