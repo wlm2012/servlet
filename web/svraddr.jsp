@@ -12,8 +12,8 @@
     <title>Title</title>
 </head>
 <body>
-<form  action="v6">
-    服务名：<input type="text" name="svrName"><br>
+<form  action="v6"  method="post">
+    服务名：<input type="text" name="svrName" ><br>
     服务器：
     <input type="radio" num="num" value="5">5
     <input type="radio" num="num" value="6">6
