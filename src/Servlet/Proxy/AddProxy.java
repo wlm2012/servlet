@@ -2,6 +2,7 @@ package Servlet.Proxy;
 
 import Entity.v6;
 import Util.HttpUtil;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,8 @@ public class AddProxy extends HttpServlet {
         }
         String body = req.getParameter("body");
         String result = req.getParameter("result");
+        String url=HttpUtil.postToTest(svrName,num);
+        result=HttpUtil.Post(url,body);
         v6 v6=new v6();
         v6.setSvrName(svrName);
         v6.setNum(num);
@@ -48,6 +51,9 @@ public class AddProxy extends HttpServlet {
 //        HttpUtil.proxyNoAuth("https://free-ss.site/");
 //        String result=HttpUtil.proxyNoAuth("http://ss.pythonic.life/");
         String result = HttpUtil.postToTest("FuserQuyBrchBrchNOLis",5);
+
         System.out.println(result);
     }
+
+
 }

@@ -45,8 +45,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     输出报文：<br>
-    <textarea rows="20" cols="30" name="body" >${v6.body}</textarea>
-    <textarea rows="20" cols="30" name="result" >${v6.body}</textarea><br>
+    <textarea rows="30" cols="60" name="body" >${v6.body}</textarea>
+    <textarea rows="30" cols="60" name="result" >${v6.result}</textarea><br>
 <%--    <input type="text" name="body" value="${v6.body}"><br>--%>
     <input type="submit" value="提交">
 </form>

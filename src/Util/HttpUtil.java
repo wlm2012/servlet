@@ -43,7 +43,7 @@ public class HttpUtil {
         return result;
     }
 
-    public static String postToTest(String svrName,Integer num) {
+    public static String postToTest(String svrName, Integer num) {
 
         String url = "";
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -72,10 +72,34 @@ public class HttpUtil {
 //            System.out.println(result);
             Gson gson = new Gson();
             url = gson.fromJson(result, svraddr.class).getCOM_HTTP().getURL();
-            url =url.substring(0,17)+num+url.substring(18)+"/"+svrName;
+            url = url.substring(0, 17) + num + url.substring(18) + "/" + svrName;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return url;
+    }
+
+    public static String Post(String url, String param) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+        StringEntity entity = null;
+        try {
+            entity=new StringEntity(param);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("application/json");
+        httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
+        httpPost.setEntity(entity);
+        String result="";
+        try {
+            HttpResponse httpResponse=httpClient.execute(httpPost);
+            result=EntityUtils.toString(httpResponse.getEntity());
+            result=JsonUtil.toPrettyFormat(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
