@@ -1,7 +1,9 @@
 package Servlet.Proxy;
 
+import Entity.v6;
 import Util.HttpUtil;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +16,31 @@ public class AddProxy extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            resp.sendRedirect("svraddr.jsp");
-        } catch (IOException e) {
+            v6 v6=new v6();
+            v6.setNum(5);
+            req.setAttribute("v6",v6);
+            req.getRequestDispatcher("svraddr.jsp").forward(req, resp);
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        AddProxy1();
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String svrName = req.getParameter("svrName");
+        Integer num = 5;
+        if (req.getParameter("num")!=null){
+            num = Integer.valueOf(req.getParameter("num"));
+        }
+        String body = req.getParameter("body");
+        String result = req.getParameter("result");
+        v6 v6=new v6();
+        v6.setSvrName(svrName);
+        v6.setNum(num);
+        v6.setBody(body);
+        v6.setResult(result);
+        req.setAttribute("v6",v6);
+        req.getRequestDispatcher("svraddr.jsp").forward(req, resp);
     }
 
     public void AddProxy1() {
