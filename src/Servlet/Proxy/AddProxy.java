@@ -28,7 +28,7 @@ public class AddProxy extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String svrName = req.getParameter("svrName");
+        String svrName = req.getParameter("svrName").trim();
         Integer num = 5;
         if (req.getParameter("num")!=null){
             num = Integer.valueOf(req.getParameter("num"));

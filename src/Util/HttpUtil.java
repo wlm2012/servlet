@@ -84,7 +84,7 @@ public class HttpUtil {
         HttpPost httpPost = new HttpPost(url);
         StringEntity entity = null;
         try {
-            entity=new StringEntity(param);
+            entity = new StringEntity(param);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -92,11 +92,11 @@ public class HttpUtil {
         entity.setContentType("application/json");
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
         httpPost.setEntity(entity);
-        String result="";
+        String result = "";
         try {
-            HttpResponse httpResponse=httpClient.execute(httpPost);
-            result=EntityUtils.toString(httpResponse.getEntity());
-            result=JsonUtil.toPrettyFormat(result);
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            result = EntityUtils.toString(httpResponse.getEntity());
+            result = JsonUtil.toPrettyFormat(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
