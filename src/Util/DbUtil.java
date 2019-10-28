@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class DbUtil {
 
+    private static String sql;
     private static String drivename;
     private static String url;
     private static String userName;
@@ -32,8 +33,9 @@ public class DbUtil {
             System.out.println(filePath);*/
 
             properties.load(in);
-
-
+            sql=properties.getProperty("sql");
+            in = DbUtil.class.getClassLoader().getResourceAsStream(sql);
+            properties.load(in);
             drivename = properties.getProperty("drivename");
             url = properties.getProperty("url");
             userName = properties.getProperty("userName");
