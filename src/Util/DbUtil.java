@@ -77,7 +77,7 @@ public class DbUtil {
                 listConnections.remove(0);
             } else {
                 try {
-                    Thread.sleep(50000);
+                    Thread.sleep(100);
                     getCurrentConn();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
