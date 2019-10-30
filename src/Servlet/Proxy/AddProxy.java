@@ -58,14 +58,14 @@ public class AddProxy extends HttpServlet {
         req.getRequestDispatcher("svraddr.jsp").forward(req, resp);
     }
 
-    public void AddProxy1() {
-//        HttpUtil.proxyNoAuth("https://www.ssrtool.com/tool/free_ssr");
-//        HttpUtil.proxyNoAuth("https://free-ss.site/");
-//        String result=HttpUtil.proxyNoAuth("http://ss.pythonic.life/");
+/*    public void AddProxy1() {
+        HttpUtil.proxyNoAuth("https://www.ssrtool.com/tool/free_ssr");
+        HttpUtil.proxyNoAuth("https://free-ss.site/");
+        String result=HttpUtil.proxyNoAuth("http://ss.pythonic.life/");
         String result = HttpUtil.postToTest("FuserQuyBrchBrchNOLis",5);
 
         System.out.println(result);
-    }
+    }*/
 
 
 }
