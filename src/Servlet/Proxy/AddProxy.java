@@ -1,6 +1,9 @@
 package Servlet.Proxy;
 
+import Dao.V6logDao;
 import Entity.v6;
+import Entity.v6_log;
+import Util.DbUtil;
 import Util.HttpUtil;
 import com.google.gson.Gson;
 
@@ -55,6 +58,16 @@ public class AddProxy extends HttpServlet {
         v6.setBody(body);
         v6.setResult(result);
         req.setAttribute("v6",v6);
+
+        v6_log v6_log=new v6_log();
+        v6_log.setNum(num);
+        v6_log.setSvrName(svrName);
+        v6_log.setBody(body);
+
+        V6logDao v6logDao=new V6logDao();
+        v6logDao.AddV6Log(v6_log);
+        DbUtil.close();
+
         req.getRequestDispatcher("svraddr.jsp").forward(req, resp);
     }
 
