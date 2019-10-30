@@ -44,7 +44,7 @@
             break;
     }
     %>
-    服务名：<input type="text" name="svrName" size="60" value="${v6.svrName}"><br>
+    服务名：<input type="text" name="svrName" size="120" value="${v6.svrName}"><br>
     服务器：
     <input type="radio" name="num" value="5" <%=five%>>5
     <input type="radio" name="num" value="6" <%=six%>>6
@@ -52,7 +52,7 @@
     <input type="radio" name="num" value="23" <%=two%>>23
     <input type="radio" name="num" value="0" <%=zero%>>自定义<br>
     输入报文：
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     输出报文：<br>
     <textarea rows="30" cols="60" name="body" >${v6.body}</textarea>
