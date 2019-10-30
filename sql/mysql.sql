@@ -26,3 +26,6 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `t_user_un` (`name`),
   KEY `t_user_status_IDX` (`status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
