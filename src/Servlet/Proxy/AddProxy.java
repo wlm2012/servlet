@@ -35,7 +35,19 @@ public class AddProxy extends HttpServlet {
         }
         String body = req.getParameter("body");
         String result = req.getParameter("result");
-        String url=HttpUtil.postToTest(svrName,num);
+        String url="";
+        //如果为5、6、7，则使用寻址服务器传回来的地址
+        if(num.equals(5)||num.equals(6)||num.equals(7)){
+            url=HttpUtil.postToTest(svrName,num);
+        }
+        //如果为23，则使用测试网厅的地址
+        if (num.equals(23)){
+            url="http://172.17.17.23:9092/api";
+        }
+        if (num.equals(0)){
+            url=svrName;
+        }
+
         result=HttpUtil.Post(url,body);
         v6 v6=new v6();
         v6.setSvrName(svrName);

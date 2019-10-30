@@ -20,6 +20,8 @@
     String five="";
     String six="";
     String seven="";
+    String two="";
+    String zero="";
     switch (num)
     {
         case 5:
@@ -31,16 +33,24 @@
         case 7:
             seven="checked";
             break;
+        case 23:
+            two="checked";
+            break;
+        case 0:
+            zero="checked";
+            break;
         default:
             five="checked";
             break;
     }
     %>
-    服务名：<input type="text" name="svrName" size="40" value="${v6.svrName}"><br>
+    服务名：<input type="text" name="svrName" size="60" value="${v6.svrName}"><br>
     服务器：
     <input type="radio" name="num" value="5" <%=five%>>5
     <input type="radio" name="num" value="6" <%=six%>>6
-    <input type="radio" name="num" value="7" <%=seven%>>7<br>
+    <input type="radio" name="num" value="7" <%=seven%>>7
+    <input type="radio" name="num" value="23" <%=two%>>23
+    <input type="radio" name="num" value="0" <%=zero%>>自定义<br>
     输入报文：
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
