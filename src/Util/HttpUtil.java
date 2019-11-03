@@ -2,6 +2,8 @@ package Util;
 
 import Entity.svraddr;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.RuleBasedCollator;
 
 
 /**
@@ -71,8 +74,14 @@ public class HttpUtil {
             String result = EntityUtils.toString(response.getEntity());
 //            System.out.println(result);
             Gson gson = new Gson();
-            url = gson.fromJson(result, svraddr.class).getCOM_HTTP().getURL();
-            url = url.substring(0, 17) + num + url.substring(18) + "/" + svrName;
+            svraddr svraddr = gson.fromJson(result, svraddr.class);
+            if (svraddr.getRetCode().equals("SUCCESS")){
+                url = svraddr.getCOM_HTTP().getURL();
+                url = url.substring(0, 17) + num + url.substring(18) + "/" + svrName;
+            }else{
+                url=svraddr.getRetCode();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
