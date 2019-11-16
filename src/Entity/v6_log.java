@@ -47,6 +47,7 @@ public class v6_log {
     }
 
     public void setDatetime(Timestamp datetime) {
+
         this.datetime = datetime;
     }
 

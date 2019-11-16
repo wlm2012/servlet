@@ -11,7 +11,7 @@ public class V6logDao {
 
     public  List<v6_log> findBySvrName(String SvrName){
 
-        String sql="select * from t_v6_log where svrName like '%"+SvrName+"%' order by `datetime` DESC LIMIT 100";
+        String sql="select * from t_v6_log where svrName like '%"+SvrName+"%' order by createtime DESC LIMIT 100";
 
         Connection conn= DbUtil.getCurrentConn();
         List<v6_log> v6LogList=null;
@@ -23,7 +23,7 @@ public class V6logDao {
                 v6_log v6Log1 =new v6_log();
                 v6Log1.setSvrName(resultSet.getString("svrName"));
                 v6Log1.setBody(resultSet.getString("body"));
-                v6Log1.setDatetime(resultSet.getTimestamp("datetime"));
+                v6Log1.setDatetime(resultSet.getTimestamp("createtime"));
                 v6Log1.setNum(resultSet.getInt("num"));
                 v6LogList.add(v6Log1);
             }
@@ -38,7 +38,7 @@ public class V6logDao {
 
     public  void AddV6Log(v6_log v6Log){
 
-        String sql="INSERT INTO t_v6_log (`user`, svrName, num, body, `datetime`) VALUES(?,?,?,?,?);";
+        String sql="INSERT INTO t_v6_log (`user`, svrName, num, body) VALUES(?,?,?,?);";
         Connection conn=DbUtil.getCurrentConn();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -46,7 +46,6 @@ public class V6logDao {
             ps.setString(2, v6Log.getSvrName());
             ps.setInt(3, v6Log.getNum());
             ps.setString(4, v6Log.getBody());
-            ps.setTimestamp(5, v6Log.getDatetime());
             ps.execute();
             ps.close();
         } catch (SQLException e) {

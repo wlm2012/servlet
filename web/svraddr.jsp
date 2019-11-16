@@ -8,11 +8,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
 <html>
+
 <head>
     <title>测试专用postman</title>
 </head>
 <body>
+
 <div>
     <form action="v6" method="post">
         <%
@@ -63,10 +66,29 @@
     </form>
 </div>
 <div>
-    <form action="findv6log" method="post">
-        <input type="text" name="svrName" size="60">
-        <input type="submit" value="提交"><br>
+    <form id="form1">
+        <input type="text" name="SvrName" size="60">
+        <input type="button" value="提交" onclick="upload()">
+        <br>
     </form>
 </div>
+<br>
 </body>
+
+
+<script >
+    function upload() {
+        $.ajax({
+            type: "POST",
+            url: "findv6log",
+            data: $('#form1').serialize(),
+            dataType: "json",//类型
+            success: function (msg) {
+                var str = JSON.stringify(msg);
+                alert(str);
+            }
+        });
+    }
+</script>
+
 </html>
