@@ -1,8 +1,12 @@
 package Entity;
 
+import lombok.Data;
+
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
+@Data
 public class Article {
 
     private String id;
@@ -10,55 +14,10 @@ public class Article {
     private String article;
     private String title;
     private Timestamp update_time;
+    private Time update_time1;
     private Integer visited;
 
-    public Integer getVisited() {
-        return visited;
-    }
 
-    public void setVisited(Integer visited) {
-        this.visited = visited;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getArticle() {
-        return article;
-    }
-
-    public void setArticle(String article) {
-        this.article = article;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Timestamp getUpdate_time() {
-        return update_time;
-    }
-
-    public void setUpdate_time(Timestamp update_time) {
-        this.update_time = update_time;
-    }
 
 
 }
