@@ -29,3 +29,18 @@ CREATE TABLE `t_user` (
 
 
 
+
+
+CREATE TABLE `t_v6_log` (
+  `user` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `svrName` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `num` bigint(20) DEFAULT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `createtime` datetime DEFAULT current_timestamp() COMMENT '创建时间',
+  KEY `t_v6_log_user_IDX` (`user`) USING BTREE,
+  KEY `t_v6_log_svrName_IDX` (`svrName`(768)) USING BTREE,
+  KEY `t_v6_log_createtime_IDX` (`createtime`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+
+
