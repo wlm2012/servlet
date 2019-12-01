@@ -22,10 +22,12 @@ CREATE TABLE `t_user` (
   `name` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `status` varchar(4) NOT NULL,
+  `scores` double DEFAULT NULL,
+  `lastlogintime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `t_user_un` (`name`),
   KEY `t_user_status_IDX` (`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
 
