@@ -28,7 +28,7 @@ public class FindV6Log extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
 
         String SvrName = req.getParameter("SvrName");
-        System.out.println(SvrName);
+//        System.out.println(SvrName);
         V6logDao v6logDao=new V6logDao();
         List<v6_log> v6LogList=v6logDao.findBySvrName(SvrName);
 
