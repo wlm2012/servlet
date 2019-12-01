@@ -4,15 +4,24 @@ import java.io.*;
 
 public class IoUtil {
 
+    public static void  main(String[] args){
+        try {
+            System.out.println(readFile("D:\\decrypt.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // 根据系统自动修改斜杆和反斜杠
     public static String RepalceSeparator(String s) {
         return s.replace("\\", File.separator).replace("/", File.separator);
     }
 
     public static String readFile(String path) throws IOException {
+        path = RepalceSeparator(path);
         File file = new File(path);
         FileReader fReader = null;
-        StringBuffer stringBuffer=new StringBuffer();
+        StringBuffer stringBuffer = new StringBuffer();
         try {
             fReader = new FileReader(file);
             char[] buf = new char[1024 * 10];
@@ -27,11 +36,11 @@ public class IoUtil {
             throw e;
         } finally {
             fReader.close();
-
         }
     }
 
     public static void writeFile(String path, String s) throws Exception {
+        path = RepalceSeparator(path);
         File file = new File(path);
         if (!file.exists()) {
             creatFile(path);
@@ -48,7 +57,6 @@ public class IoUtil {
             fileWriter.close();
         }
     }
-
 
 
     /**
@@ -90,7 +98,6 @@ public class IoUtil {
     }
 
 
-
     public static void creatFileOnly(String filePath) throws Exception {
         try {
             File fileName = new File(filePath);
@@ -104,8 +111,6 @@ public class IoUtil {
             throw e;
         }
     }
-
-
 
 
     public static void delFile(String filePath) throws Exception {
