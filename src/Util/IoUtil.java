@@ -39,7 +39,7 @@ public class IoUtil {
         }
     }
 
-    public static void writeFile(String path, String s) throws Exception {
+    public static void writeFile(String path, String s) throws IOException {
         path = RepalceSeparator(path);
         File file = new File(path);
         if (!file.exists()) {
