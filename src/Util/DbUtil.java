@@ -108,6 +108,7 @@ public class DbUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void commit() {

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -37,6 +38,7 @@ public class FindV6Log extends HttpServlet {
             printWriter.flush();
             printWriter.close();
         } catch (Exception e) {
+            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt",e.toString());
             req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
         } finally {
             DbUtil.close();

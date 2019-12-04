@@ -13,7 +13,7 @@ public class UserDao {
     }
 
 
-    public static User FindUser(User user) throws SQLException {
+    public static User FindUser(User user) {
         String sql = "select * from t_user where name=? and password=? and status='1' limit 1";
 
         try {
@@ -30,7 +30,7 @@ public class UserDao {
             DbUtil.close(resultSet, ps);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e;
+
         }
         return user;
     }
