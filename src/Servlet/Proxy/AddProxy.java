@@ -43,8 +43,8 @@ public class AddProxy extends HttpServlet {
             String url = "";
 
 
-//如果为5、6、7，则使用寻址服务器传回来的地址
-//如果为23，则使用测试网厅的地址
+            /*如果为5、6、7，则使用寻址服务器传回来的地址
+            如果为23，则使用测试网厅的地址*/
             switch (num) {
                 case 5:
                 case 6:

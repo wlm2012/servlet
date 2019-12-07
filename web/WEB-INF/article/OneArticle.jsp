@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <div style="text-align: left;">
-        <title>品葱</title>
+        <title></title>
     </div>
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 </head>
