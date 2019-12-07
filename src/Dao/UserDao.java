@@ -28,14 +28,14 @@ public class UserDao {
                 return user;
             }
             DbUtil.close(resultSet, ps);
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
 
         }
         return user;
     }
 
-    public static User findOneUser(String id) throws SQLException {
+    public static User findOneUser(String id) throws SQLException, InterruptedException {
         User user = new User();
         try {
             String sql = "select * from t_user where id=? limit 1";
@@ -53,7 +53,7 @@ public class UserDao {
                 user.setLastlogintime(resultSet.getTimestamp("lastlogintime").toLocalDateTime());
                 return user;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
             throw e;
         }

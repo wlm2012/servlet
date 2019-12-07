@@ -33,7 +33,7 @@ public class DbUtil {
             System.out.println(filePath);*/
 
             properties.load(in);
-            sql=properties.getProperty("sql");
+            sql = properties.getProperty("sql");
             in = DbUtil.class.getClassLoader().getResourceAsStream(sql);
             properties.load(in);
             drivename = properties.getProperty("drivename");
@@ -53,22 +53,16 @@ public class DbUtil {
     }
 
     //建立数据库连接，仅供创建数据库连接池时使用
-    private static Connection getConn() {
-        Connection conn = null;
-        try {
-            Class.forName(drivename);
-            conn = DriverManager.getConnection(url, userName, passWord);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    private static Connection getConn() throws ClassNotFoundException, SQLException {
+
+        Class.forName(drivename);
+        Connection conn = DriverManager.getConnection(url, userName, passWord);
         return conn;
     }
 
 
     //供Dao层使用
-    public static Connection getCurrentConn() {
+    public static Connection getCurrentConn() throws InterruptedException {
         Connection conn = tlc.get();
         if (conn == null) {
             if (listConnections.size() > 0) {
@@ -76,50 +70,39 @@ public class DbUtil {
                 tlc.set(conn);
                 listConnections.remove(0);
             } else {
-                try {
-                    Thread.sleep(100);
-                    getCurrentConn();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Thread.sleep(100);
+                getCurrentConn();
             }
         }
         return conn;
     }
 
-    public static void close() {
+    public static void close() throws InterruptedException {
         Connection conn = getCurrentConn();
         listConnections.add(conn);
         tlc.remove();
     }
 
 
-    public static void startTransaction() {
-        try {
-            getCurrentConn().setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    public static void startTransaction() throws InterruptedException, SQLException {
 
-    public static void rollback() {
-        try {
-            getCurrentConn().rollback();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        getCurrentConn().setAutoCommit(false);
 
     }
 
-    public static void commit() {
-        Connection conn=getCurrentConn();
-        try {
-            conn.commit();
-            listConnections.add(conn);
-            tlc.remove();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void rollback() throws InterruptedException, SQLException {
+
+        getCurrentConn().rollback();
+
+
+    }
+
+    public static void commit() throws InterruptedException, SQLException {
+        Connection conn = getCurrentConn();
+        conn.commit();
+        listConnections.add(conn);
+        tlc.remove();
+
     }
 
 
@@ -135,7 +118,7 @@ public class DbUtil {
 
 
     // 测试数据库是否连通
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         System.err.println(getConn());
     }
 

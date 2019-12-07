@@ -26,89 +26,79 @@ import java.text.RuleBasedCollator;
  */
 public class HttpUtil {
 
-    public static String proxyNoAuth(String webUrl) {
+    public static String proxyNoAuth(String webUrl) throws IOException {
 
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(webUrl);
         request.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
         request.setConfig(RequestConfig.custom().setProxy(new HttpHost("127.0.0.1", 1081, "http")).build());
         String result = "";
-        try {
-            System.out.println(EntityUtils.toString(client.execute(request).getEntity()));
-            CloseableHttpResponse response = client.execute(request);
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                result = EntityUtils.toString(response.getEntity());
-            }
-            client.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        System.out.println(EntityUtils.toString(client.execute(request).getEntity()));
+        CloseableHttpResponse response = client.execute(request);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            result = EntityUtils.toString(response.getEntity());
         }
+        client.close();
+
         return result;
     }
 
-    public static String postToTest(String svrName, Integer num) {
+    public static String postToTest(String svrName, Integer num) throws IOException {
 
         String url = "";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://172.17.17.13:18090/msagent/service/svraddr");
         StringEntity entity = null;
-        try {
-            entity = new StringEntity("{\n" +
-                    "    \"SeqNo\": \"123456\",\n" +
-                    "    \"Token\": \"c1cb11d5c57e4298bace55dd8d75fb4a\",\n" +
-                    "    \"Tenant\": \"head\",\n" +
-                    "    \"DyncParam\": {},\n" +
-                    "    \"PartId\": \"QDGJJ\",\n" +
-                    "    \"SvrName\": \"" + svrName + "\"\n" +
-                    "}");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
+        entity = new StringEntity("{\n" +
+                "    \"SeqNo\": \"123456\",\n" +
+                "    \"Token\": \"c1cb11d5c57e4298bace55dd8d75fb4a\",\n" +
+                "    \"Tenant\": \"head\",\n" +
+                "    \"DyncParam\": {},\n" +
+                "    \"PartId\": \"QDGJJ\",\n" +
+                "    \"SvrName\": \"" + svrName + "\"\n" +
+                "}");
+
         entity.setContentEncoding("UTF-8");
         entity.setContentType("application/json");
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
         httpPost.setEntity(entity);
 
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-            String result = EntityUtils.toString(response.getEntity());
-//            System.out.println(result);
-            Gson gson = new Gson();
-            svraddr svraddr = gson.fromJson(result, svraddr.class);
-            if (svraddr.getRetCode().equals("SUCCESS")){
-                url = svraddr.getCOM_HTTP().getURL();
-                url = url.substring(0, 17) + num + url.substring(18) + "/" + svrName;
-            }else{
-                url=svraddr.getRetCode();
-            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        HttpResponse response = httpClient.execute(httpPost);
+        String result = EntityUtils.toString(response.getEntity());
+
+        Gson gson = new Gson();
+        svraddr svraddr = gson.fromJson(result, svraddr.class);
+        if (svraddr.getRetCode().equals("SUCCESS")) {
+            url = svraddr.getCOM_HTTP().getURL();
+            url = url.substring(0, 17) + num + url.substring(18) + "/" + svrName;
+        } else {
+            url = svraddr.getRetCode();
         }
+
+
         return url;
     }
 
-    public static String Post(String url, String param) {
+    public static String Post(String url, String param) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         StringEntity entity = null;
-        try {
-            entity = new StringEntity(param);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
+        entity = new StringEntity(param);
+
         entity.setContentEncoding("UTF-8");
         entity.setContentType("application/json");
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0");
         httpPost.setEntity(entity);
         String result = "";
-        try {
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            result = EntityUtils.toString(httpResponse.getEntity());
-            result = JsonUtil.toPrettyFormat(result);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        result = EntityUtils.toString(httpResponse.getEntity());
+        result = JsonUtil.toPrettyFormat(result);
+
         return result;
     }
 }

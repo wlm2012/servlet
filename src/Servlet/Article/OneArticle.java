@@ -23,18 +23,22 @@ import java.util.List;
 public class OneArticle extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         doPost(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArticleDao articleDao = new ArticleDao();
-        String id = req.getParameter("id");
-        Article article = articleDao.FindArticleById(id);
-        articleDao.AddVisited(id);
-        DbUtil.close();
-        req.setAttribute("article", article);
-        req.getRequestDispatcher("WEB-INF/article/OneArticle.jsp").forward(req, resp);
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)  {
+        try {
+            ArticleDao articleDao = new ArticleDao();
+            String id = req.getParameter("id");
+            Article article = articleDao.FindArticleById(id);
+            articleDao.AddVisited(id);
+            DbUtil.close();
+            req.setAttribute("article", article);
+            req.getRequestDispatcher("WEB-INF/article/OneArticle.jsp").forward(req, resp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

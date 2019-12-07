@@ -21,28 +21,34 @@ import java.sql.Timestamp;
 public class LoginServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         doPost(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String name = req.getParameter("name");
-        String password = req.getParameter("password");
-        UserDao userDao=new UserDao();
-        User user=new User();
-        user.setName(name);
-        user.setPassword(password);
-        user=userDao.FindUser(user);
-        String id=user.getId();
-        if (StringUtil.isEmpty(id)){
-            req.setAttribute("msg","账号或密码错误");
-            req.getRequestDispatcher("WEB-INF/Login.jsp").forward(req,resp);
-        }else{
-            HttpSession session = req.getSession();
-            session.setAttribute("name",name);
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
+
+        try {
+            String name = req.getParameter("name");
+            String password = req.getParameter("password");
+            UserDao userDao = new UserDao();
+            User user = new User();
+            user.setName(name);
+            user.setPassword(password);
+            user = UserDao.FindUser(user);
+            String id = user.getId();
+            if (StringUtil.isEmpty(id)) {
+                req.setAttribute("msg", "账号或密码错误");
+                req.getRequestDispatcher("WEB-INF/Login.jsp").forward(req, resp);
+            } else {
+                HttpSession session = req.getSession();
+                session.setAttribute("name", name);
+            }
+            DbUtil.close();
+            resp.sendRedirect("/ListArticle");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        DbUtil.close();
-        resp.sendRedirect("/ListArticle");
     }
 }

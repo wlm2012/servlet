@@ -23,27 +23,31 @@ import java.util.List;
 public class ListArticle extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         doPost(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArticleDao articleDao = new ArticleDao();
-        String Page = req.getParameter("Page");
-        String PageNum = req.getParameter("PageNum");
-        Integer page = 1;
-        Integer pagenum = 5;
-        if (StringUtil.isEmpty(Page) || StringUtil.isEmpty(PageNum)) {
-            //do nothing
-        } else {
-            page = Integer.parseInt(Page);
-            pagenum = Integer.valueOf(pagenum);
-        }
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            ArticleDao articleDao = new ArticleDao();
+            String Page = req.getParameter("Page");
+            String PageNum = req.getParameter("PageNum");
+            Integer page = 1;
+            Integer pagenum = 5;
+            if (StringUtil.isEmpty(Page) || StringUtil.isEmpty(PageNum)) {
+                //do nothing
+            } else {
+                page = Integer.parseInt(Page);
+                pagenum = Integer.valueOf(pagenum);
+            }
 
-        List<Article> articleList = articleDao.FindArticleByPage(page, pagenum);
-        DbUtil.close();
-        req.setAttribute("articleList", articleList);
-        req.getRequestDispatcher("WEB-INF/article/ListArticle.jsp").forward(req, resp);
+            List<Article> articleList = articleDao.FindArticleByPage(page, pagenum);
+            DbUtil.close();
+            req.setAttribute("articleList", articleList);
+            req.getRequestDispatcher("WEB-INF/article/ListArticle.jsp").forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

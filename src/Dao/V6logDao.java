@@ -9,7 +9,7 @@ import java.util.List;
 
 public class V6logDao {
 
-    public  List<v6_log> findBySvrName(String SvrName){
+    public  List<v6_log> findBySvrName(String SvrName) throws InterruptedException {
 
         String sql="select * from t_v6_log where svrName like '%"+SvrName+"%' order by createtime DESC LIMIT 100";
 
@@ -36,7 +36,7 @@ public class V6logDao {
     }
 
 
-    public  void AddV6Log(v6_log v6Log){
+    public  void AddV6Log(v6_log v6Log) throws InterruptedException {
 
         String sql="INSERT INTO t_v6_log (`user`, svrName, num, body) VALUES(?,?,?,?);";
         Connection conn=DbUtil.getCurrentConn();

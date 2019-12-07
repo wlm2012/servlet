@@ -4,12 +4,10 @@ import java.io.*;
 
 public class IoUtil {
 
-    public static void main(String[] args) {
-        try {
-            System.out.println(readFile("D:\\decrypt.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args)  {
+
+            System.out.println(changeFilePath("F:\\wlm\\now\\listen\\Learn Faster with The Feynman Technique - YouTube.mp4","C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\"));
+
     }
 
     // 根据系统自动修改斜杆和反斜杠
@@ -20,10 +18,9 @@ public class IoUtil {
     public static String readFile(String path) throws IOException {
         path = RepalceSeparator(path);
         File file = new File(path);
-        FileReader fReader = null;
         StringBuffer stringBuffer = new StringBuffer();
-        try {
-            fReader = new FileReader(file);
+        try (FileReader fReader = new FileReader(file)) {
+
             char[] buf = new char[1024 * 10];
             int temp = 0;
             while ((temp = fReader.read(buf)) > 0) {
@@ -34,8 +31,6 @@ public class IoUtil {
             throw e;
         } catch (IOException e) {
             throw e;
-        } finally {
-            fReader.close();
         }
     }
 
@@ -45,19 +40,35 @@ public class IoUtil {
         if (!file.exists()) {
             creatFile(path);
         }
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(file, true);
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
             fileWriter.write(s);
-
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
-        } finally {
-            fileWriter.close();
         }
     }
 
+
+    /**
+     * 通过io流来复制文件
+     * @param FromPath
+     * @param ToPath
+     * @throws IOException
+     */
+    public static void CopyFile(String FromPath, String ToPath) throws IOException {
+        FromPath = RepalceSeparator(FromPath);
+        ToPath = RepalceSeparator(ToPath);
+        byte[] buf = new byte[1024*10];
+        try (FileInputStream fInputStream = new FileInputStream(FromPath);
+             FileOutputStream fOutputStream = new FileOutputStream(ToPath)) {
+            int length = 0;
+            while ((length = fInputStream.read(buf)) > 0) {
+                fOutputStream.write(buf, 0, length);
+            }
+        } catch (IOException e) {
+            throw e;
+        }
+    }
 
     /**
      * 通过改变文件路径来移动文件

@@ -29,20 +29,23 @@ public class FindV6Log extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String SvrName = req.getParameter("SvrName");
-            V6logDao v6logDao = new V6logDao();
-            List<v6_log> v6LogList = v6logDao.findBySvrName(SvrName);
-            Gson gson = new Gson();
-            PrintWriter printWriter = resp.getWriter();
-            printWriter.write(gson.toJson(v6LogList));
-            printWriter.flush();
-            printWriter.close();
-        } catch (Exception e) {
-            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt",e.toString());
+            try {
+                String SvrName = req.getParameter("SvrName");
+                V6logDao v6logDao = new V6logDao();
+                List<v6_log> v6LogList = v6logDao.findBySvrName(SvrName);
+                Gson gson = new Gson();
+                PrintWriter printWriter = resp.getWriter();
+                printWriter.write(gson.toJson(v6LogList));
+                printWriter.flush();
+                printWriter.close();
+            }  finally {
+                DbUtil.close();
+            }
+        }catch (Exception e) {
+            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt",e.getMessage());
             req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
-        } finally {
-            DbUtil.close();
         }
+
     }
 
 

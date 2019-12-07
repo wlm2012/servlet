@@ -28,7 +28,7 @@ public class ArticleDao {
             ps.setTimestamp(5, article.getUpdate_time());
             ps.executeUpdate();
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -42,7 +42,7 @@ public class ArticleDao {
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -58,7 +58,7 @@ public class ArticleDao {
             ps.setString(3, article.getTitle());
             ps.setTimestamp(4, article.getUpdate_time());
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -88,7 +88,7 @@ public class ArticleDao {
             }
             DbUtil.close(resultSet, ps);
 
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
         return articleList;
@@ -111,7 +111,7 @@ public class ArticleDao {
                 article.setVisited(resultSet.getInt("visited"));
             }
             DbUtil.close(resultSet, ps);
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
         return article;
@@ -125,7 +125,7 @@ public class ArticleDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
     }
