@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="/js/jquery-3.4.1.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form id="OneUser">
+        <input type="text" name="id" size="60">
+        <input type="button" value="提交" onclick="upload()">
+        <br>
+    </form>
+    <div id="Result" style="margin: 0px 0 0px 45%;"></div>
+</div>
+</body>
+
+
+<script>
+    function upload() {
+        $.ajax({
+            type: "POST",
+            url: "OneUser",
+            data: $('#OneUser').serialize(),
+            dataType: "json",//类型
+            success: function (msg) {
+
+                var html = "<table border='1'><tr><td>姓名</td><td>密码</td><td>威望</td><td>时间</td></tr>";
+/*                var ls = msg[0];
+                var date = ls.lastlogintime.date;
+                var time = ls.lastlogintime.time;
+
+                html += "<tr><td>" + ls.name + "</td><td>" + ls.password + "</td><td>" + ls.scores + "</td><td>" + date.year + "年" + date.month + "月" + date.day + "日" + time.hour + "时" + time.minute + "分" + time.second + "秒" + "</td>";*/
+                                for(var i=0;i<msg.length;i++){    //遍历data数组
+                                    var ls = msg[i];
+                                    var date = ls.lastlogintime.date;
+                                    var time = ls.lastlogintime.time;
+                                    html += "<tr><td>" + ls.name + "</td><td>" + ls.password + "</td><td>" + ls.scores + "</td><td>" + date.year + "年" + date.month + "月" + date.day + "日" + time.hour + "时" + time.minute + "分" + time.second + "秒" + "</td>";
+                                }
+                html += "</tr></table>";
+                $("#Result").html(html);
+            },
+            error: function () {
+                alert("加载资源失败");
+            }
+        });
+    }
+</script>
+</html>

@@ -3,9 +3,12 @@ package Servlet.User;
 
 import Dao.UserDao;
 import Entity.User;
+import Util.IoUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,34 +16,36 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/OneUser")
 public class OneUser extends HttpServlet {
 
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
-
-        try {
-            String id = req.getParameter("id");
-            User user = UserDao.findOneUser(id);
-            Gson gson = new Gson();
-            PrintWriter printWriter = resp.getWriter();
-            printWriter.write(gson.toJson(user));
-            printWriter.flush();
-            printWriter.close();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("WEB-INF/user/OneUser.html").forward(req, resp);
 
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        try {
+            String id = req.getParameter("id");
+            Gson gson = new Gson();
+            List<User> list = UserDao.findUser(id);
+            PrintWriter printWriter = resp.getWriter();
+            printWriter.write(gson.toJson(list));
+            printWriter.flush();
+            printWriter.close();
+        } catch (SQLException | IOException e) {
+            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
+            req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
+        } catch (InterruptedException e) {
+            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
+            req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
+        }
     }
 
 }
