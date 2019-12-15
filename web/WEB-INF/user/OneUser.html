@@ -12,6 +12,7 @@
         <input type="button" value="提交" onclick="upload()">
         <br>
     </form>
+    <input type="text" id="name" size="60">
     <div id="Result" style="margin: 0px 0 0px 45%;"></div>
 </div>
 </body>
@@ -39,6 +40,7 @@
                                     html += "<tr><td>" + ls.name + "</td><td>" + ls.password + "</td><td>" + ls.scores + "</td><td>" + date.year + "年" + date.month + "月" + date.day + "日" + time.hour + "时" + time.minute + "分" + time.second + "秒" + "</td>";
                                 }
                 html += "</tr></table>";
+                $("#name").val(msg[0].name);
                 $("#Result").html(html);
             },
             error: function () {
