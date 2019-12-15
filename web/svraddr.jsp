@@ -76,7 +76,7 @@
 </body>
 
 
-<script >
+<script>
     function upload() {
         $.ajax({
             type: "POST",
