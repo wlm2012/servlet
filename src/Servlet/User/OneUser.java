@@ -4,9 +4,12 @@ package Servlet.User;
 import Dao.UserDao;
 import Entity.User;
 import Util.IoUtil;
+import Util.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +33,7 @@ public class OneUser extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String id = req.getParameter("id");
             Gson gson = new Gson();
@@ -39,11 +42,8 @@ public class OneUser extends HttpServlet {
             printWriter.write(gson.toJson(list));
             printWriter.flush();
             printWriter.close();
-        } catch (SQLException | IOException e) {
-            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
-            req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
-        } catch (InterruptedException e) {
-            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
+        } catch (SQLException | IOException | InterruptedException e) {
+            LogUtil.error(e.getMessage());
             req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
         }
     }
