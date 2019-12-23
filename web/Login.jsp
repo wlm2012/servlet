@@ -14,5 +14,6 @@
     <input type="reset" value="重置">
 </form>
 <a href="/AddUser" >注册新用户</a>
+<a href="/index.jsp">点击返回首页</a>
 </body>
 </html>

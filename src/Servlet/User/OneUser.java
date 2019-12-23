@@ -39,10 +39,7 @@ public class OneUser extends HttpServlet {
             printWriter.write(gson.toJson(list));
             printWriter.flush();
             printWriter.close();
-        } catch (SQLException | IOException e) {
-            IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
-            req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
-        } catch (InterruptedException e) {
+        } catch (SQLException | IOException | InterruptedException e ){
             IoUtil.writeFile("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", e.getMessage());
             req.getRequestDispatcher("WEB-INF/bad.jsp").forward(req, resp);
         }
