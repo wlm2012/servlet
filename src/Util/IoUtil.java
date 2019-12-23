@@ -7,7 +7,7 @@ public class IoUtil {
 
     public static void main(String[] args) throws IOException {
 
-        changeFilePath("C:\\Users\\lenovo2\\Desktop\\1\\4\\3\\1.txt", "C:\\Users\\lenovo2\\Desktop\\1\\2\\3");
+        creatFile("D:\\logs\\1\\4\\3\\1.txt");
 
     }
 
