@@ -3,4 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>FileIo</servlet-name>
+        <servlet-class>Servlet.File.FileIoServlet</servlet-class>
+        <init-param>
+            <param-name>names</param-name>
+            <param-value>www</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <context-param>
+        <param-name>name</param-name>
+        <param-value>wlm</param-value>
+    </context-param>
+    <servlet-mapping>
+        <servlet-name>FileIo</servlet-name>
+        <url-pattern>/download/*</url-pattern>
+    </servlet-mapping>
 </web-app>

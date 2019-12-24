@@ -13,7 +13,7 @@
 <body>
 首页
 <div>
-    <a href="http://127.0.0.1:8080/download">1.txt</a>
+    <a href="http://127.0.0.1:8080/download/1.txt">1.txt</a>
 </div>
 </body>
 </html>
