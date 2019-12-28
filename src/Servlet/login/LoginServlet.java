@@ -40,13 +40,13 @@ public class LoginServlet extends HttpServlet {
             String id = user.getId();
             if (StringUtil.isEmpty(id)) {
                 req.setAttribute("msg", "账号或密码错误");
-                req.getRequestDispatcher("WEB-INF/Login.jsp").forward(req, resp);
+                req.getRequestDispatcher("/Login.jsp").forward(req, resp);
             } else {
                 HttpSession session = req.getSession();
                 session.setAttribute("name", name);
+                resp.sendRedirect("/ListArticle");
             }
             DbUtil.close();
-            resp.sendRedirect("/ListArticle");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,4 +20,8 @@
         <servlet-name>FileIo</servlet-name>
         <url-pattern>/download/*</url-pattern>
     </servlet-mapping>
+    
+    <listener>
+        <listener-class>Listen.MySessionListener</listener-class>
+    </listener>
 </web-app>
